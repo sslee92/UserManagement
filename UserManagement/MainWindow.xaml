@@ -1,0 +1,341 @@
+﻿<Window x:Class="UserManagement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserManagement"
+        xmlns:c="clr-namespace:UserManagement.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="600"
+        Width="1000"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <!--#region 사용자 추가 -->
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="50,150,0,0">
+
+            <!--#region 이름입력 -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top">
+                <TextBlock Text="이름"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold" />
+                <Border x:Name="bdName"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0"
+                        Width="200"
+                        Height="40"
+                        CornerRadius="6"
+                        BorderThickness="1"
+                        BorderBrush="#9EA4AA">
+                    <TextBox x:Name="tbName"
+                             VerticalAlignment="Center"
+                             TextAlignment="Left"
+                             Width="180"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             FontSize="14"
+                             MaxLines="1"
+                             Text="{Binding InputNameText, Mode=TwoWay}" />
+
+                </Border>
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region 나이입력 -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0,10,0,0">
+                <TextBlock Text="나이"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold" />
+                <Border x:Name="bdAge"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0"
+                        Width="200"
+                        Height="40"
+                        CornerRadius="6"
+                        BorderThickness="1"
+                        BorderBrush="#9EA4AA">
+                    <TextBox x:Name="tbAge"
+                             VerticalAlignment="Center"
+                             TextAlignment="Left"
+                             Width="180"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             FontSize="14"
+                             MaxLines="1"
+                             Text="{Binding InputAgeText, Mode=TwoWay}" />
+
+                </Border>
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region 연락처입력 -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0,10,0,0">
+                <TextBlock Text="연락처"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold" />
+                <Border x:Name="bdPhoneNumber"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0"
+                        Width="200"
+                        Height="40"
+                        CornerRadius="6"
+                        BorderThickness="1"
+                        BorderBrush="#9EA4AA">
+                    <TextBox x:Name="tbPhoneNumber"
+                             VerticalAlignment="Center"
+                             TextAlignment="Left"
+                             Width="180"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             FontSize="14"
+                             MaxLines="1"
+                             Text="{Binding InputPhoneNoText, Mode=TwoWay}">
+                    </TextBox>
+                </Border>
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region 추가버튼-->
+            <c:BasicButton HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           Margin="0,20,0,0"
+                           Width="270"
+                           Height="50"
+                           FontWeight="Bold"
+                           FontSize="20"
+                           Background="blue"
+                           CornerRadius="6"
+                           Text="추가"
+                           Foreground="white"
+                           Command="{Binding AddUserCommand}" />
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#endregion-->
+
+        <!--#region 사용자 조회 및 삭제-->
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="400,60,0,0">
+
+            <ComboBox VerticalAlignment="Center"
+                      Width="100"
+                      Height="40"
+                      Style="{StaticResource BasicComboBox}"
+                      ItemsSource="{Binding SearchMethodList}"
+                      SelectedItem="{Binding SelectedSearchMethod}" />
+
+            <Border VerticalAlignment="Center"
+                    Margin="5,0,0,0"
+                    Width="200"
+                    Height="40"
+                    CornerRadius="6"
+                    BorderThickness="1"
+                    BorderBrush="#9EA4AA">
+                <TextBox VerticalAlignment="Center"
+                         TextAlignment="Left"
+                         Width="180"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         MaxLines="1"
+                         Text="{Binding SearchText, Mode=TwoWay}" />
+            </Border>
+
+            <c:BasicButton Text="조회"
+                           Margin="5,0,0,0"
+                           Width="100"
+                           Height="40"
+                           Background="DarkBlue"
+                           Foreground="white"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           CornerRadius="6"
+                           Command="{Binding SearchUserCommand}" />
+
+            <c:BasicButton Text="삭제"
+                           Margin="5,0,0,0"
+                           Width="100"
+                           Height="40"
+                           Background="IndianRed"
+                           Foreground="white"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           CornerRadius="6"
+                           Command="{Binding RemoveUserCommand}" />
+
+        </StackPanel>
+
+        <!--#endregion-->
+
+        <!--#region DataGrid -->
+        <Border HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="400,110,50,0"
+                Width="520"
+                Height="50"
+                CornerRadius="6,6,0,0"
+                BorderBrush="Black"
+                BorderThickness="1,1,1,1">
+            <StackPanel Orientation="Horizontal">
+                <Border Width="150"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="Black">
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Text="이름" />
+                </Border>
+                <Border Width="110"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="Black">
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Text="나이" />
+                </Border>
+                <Border Width="260"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="Black">
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Text="연락처" />
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <DataGrid x:Name="dgUserList"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Margin="400,160,0,0"
+                  Width="520"
+                  Height="321"
+                  HeadersVisibility="None"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  GridLinesVisibility="None"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Background="White"
+                  ItemsSource="{Binding UserList}"
+                  SelectedItem="{Binding SelectedUser}"
+                  VerticalScrollBarVisibility="Hidden"
+                  HorizontalScrollBarVisibility="Hidden"
+                  CanUserAddRows="False"
+                  BorderBrush="Black"
+                  BorderThickness="1,0,1,1">
+
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="IsEnabled"
+                            Value="{Binding Path=IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Setter Property="IsSelected"
+                            Value="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Style.Triggers>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Height"
+                            Value="40" />
+                    <Setter Property="BorderThickness"
+                            Value="0,0,1,0" />
+                    <Setter Property="BorderBrush"
+                            Value="Black" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="LightBlue" />
+                            <Setter Property="Foreground"
+                                    Value="Black" />
+                        </Trigger>
+                        <Trigger Property="IsSelected"
+                                 Value="False">
+                            <Setter Property="Background"
+                                    Value="White" />
+                            <Setter Property="Foreground"
+                                    Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Name"
+                                        Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="14"
+                                       FontWeight="Normal">
+                                <Run Text="{Binding Path=Name}"
+                                     Typography.NumeralAlignment="Tabular" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Age"
+                                        Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="14"
+                                       FontWeight="Normal">
+                                <Run Text="{Binding Path=Age}"
+                                     Typography.NumeralAlignment="Tabular" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="PhoneNumber"
+                                        Width="258">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="14"
+                                       FontWeight="Normal">
+                                <Run Text="{Binding Path=PhoneNumber}"
+                                     Typography.NumeralAlignment="Tabular" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--#endregion-->
+
+    </Grid>
+</Window>
